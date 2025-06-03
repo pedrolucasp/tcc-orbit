@@ -1,0 +1,72 @@
+class Ciclo {
+	- descricao: String
+	- inicio: DateTime
+	- termino: DateTime
+	- geradoEm: DateTime
+	- intensidade: Intensidade // enum: Leve, Moderada, Grave
+	- tipo: TipoCiclo // enum: Mania, Depressão, Misto, Estável
+	- estaConfirmado: Boolean
+}
+
+class Humor {
+	- descricao: String
+	- momento: DateTime
+	- avaliacao: int // 1 a 10
+	- nivelAnsiedade: int
+	- nivelEstresse: int
+	- nivelEnergia: int
+}
+
+class ComponenteHumor {
+	- descricao: String
+	- emocao: TipoEmocao // enum: Alegria, Tristeza, Raiva, Medo, Nojo, Surpresa
+	- intensidade: Intensidade // enum: Leve, Moderada, Grave
+}
+
+class Usuario {
+	- nome: String
+	- email: String
+	- senhaCriptografada: String
+}
+
+class Intervencao {
+	- descricao: String
+	- tipo: TipoIntervencao // enum: Medicamento, Terapia, Meditação, ...
+	- eficacia: int // 1 a 10
+	- inicio: DateTime
+	- termino: DateTime
+}
+
+class Gatilho {
+	- descricao: String
+	- categoria: TipoGatilho // enum: Social, Ambiental, Emocional, Físico, Outro
+}
+
+class Lembrete {
+	- horario: Time
+	- descricao: String
+	- ativo: Boolean
+}
+
+class QualidadeSono {
+	- media: float // Média de horas dormidas, uma casa decimal, de 5 em 5, ex: 7.5
+	- qualidade: int // 1 a 10
+	- data: Date
+	- anotacoes: String // Texto livre para anotações sobre o sono
+}
+
+class RelatorioSemanal {
+	- dataInicio: Date
+	- dataFim: Date
+	- humorMedio: float // Média de avaliações de humor
+	- ansiedadeMedia: float // Média de níveis de ansiedade
+	- estresseMedio: float // Média de níveis de estresse
+	- energiaMedia: float // Média de níveis de energia
+	- sonoMedio: float // Média de horas dormidas
+	- cicloRelacionado: Ciclo
+	- qualidadeSonoMedia: float // Média de qualidade do sono
+	- intervencaoMaisUsada: String // Descrição da intervenção mais utilizada
+	- gatilhoMaisFrequente: String // Descrição do gatilho mais frequente
+	- cicloFoiConfirmado: Boolean // Indica se o ciclo foi confirmado ou não
+	- observacoes: String // Texto livre para observações gerais do relatório
+}
