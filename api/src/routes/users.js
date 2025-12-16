@@ -1,6 +1,6 @@
-const express = require("express");
-const bcrypt = require("bcryptjs");
-const db = require("../db");
+import express from "express";
+import bcrypt from "bcryptjs";
+
 const router = express.Router();
 
 // XXX: Needs translations
@@ -12,7 +12,7 @@ router.post("/", (req, res) => {
   const hashed = bcrypt.hashSync(password, 10);
 
   try {
-    const stmt = db.prepare(
+    const stmt = req.db.prepare(
       `
         INSERT INTO users (email, password, first_name, last_name)
         VALUES (?, ?, ?, ?)
@@ -27,5 +27,5 @@ router.post("/", (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
 

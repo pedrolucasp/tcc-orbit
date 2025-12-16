@@ -1,12 +1,6 @@
-const express = require("express");
-const app = express();
+import { createApp } from "./create-app.js";
+import db from "./db.js";
 
-const users = require("./routes/users");
-const mood = require("./routes/mood");
+const app = createApp(db);
 
-app.use(express.json());
-app.use("/users", users);
-app.use("/mood", mood);
-
-module.exports = app;
-
+export default app;

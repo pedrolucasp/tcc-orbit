@@ -1,4 +1,5 @@
-const Database = require('better-sqlite3');
-const db = new Database('orbit.db');
+import { setupDatabase } from './setup-db.js';
 
-module.exports = db;
+const db = setupDatabase();
+
+export default db;

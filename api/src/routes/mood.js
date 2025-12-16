@@ -1,14 +1,14 @@
-const express = require("express");
-const db = require("../db");
+import express from "express";
+
 const router = express.Router();
 
 router.post("/", (req, res) => {
   const { user_id, stress_level, anxiety_level, title, description } = req.body;
 
   if (!user_id || !stress_level || !anxiety_level)
-    return res.status(400).json({ error: "Campos fatlantes" });
+    return res.status(400).json({ error: "Campos faltantes" });
 
-  const stmt = db.prepare(
+  const stmt = req.db.prepare(
     `
       INSERT INTO mood (user_id, stress_level, anxiety_level, title, description)
       VALUES (?, ?, ?, ?, ?)
@@ -23,11 +23,11 @@ router.post("/", (req, res) => {
 });
 
 router.get("/:user_id", (req, res) => {
-  const stmt = db.prepare("SELECT * FROM mood WHERE user_id = ?");
+  const stmt = req.db.prepare("SELECT * FROM mood WHERE user_id = ?");
   const rows = stmt.all(req.params.user_id);
 
   res.json(rows);
 });
 
-module.exports = router;
+export default router;
 
