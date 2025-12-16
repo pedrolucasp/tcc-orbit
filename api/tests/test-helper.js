@@ -1,25 +1,33 @@
 import { setupTestDatabase } from '../src/setup-db.js';
 
-// Store the test database globally
-let testDb;
+// Store a single test database instance
+let globalTestDb = null;
 
-// Replace the default db connection with test database
+// Setup the test database
 export function setupTestDb() {
-  testDb = setupTestDatabase();
-  return testDb;
+  if (!globalTestDb) {
+    globalTestDb = setupTestDatabase();
+  }
+  return globalTestDb;
 }
 
 // Get the test database
 export function getTestDb() {
-  return testDb;
+  return globalTestDb;
 }
 
+// Cleanup test database
 export function cleanupTestDb() {
-  // Clear all tables
-  if (testDb) {
-    testDb.exec(`
-      DELETE FROM mood;
-      DELETE FROM users;
-    `);
+  if (globalTestDb) {
+    try {
+      // Delete in correct order due to foreign keys
+      globalTestDb.exec(`
+        DELETE FROM mood_components;
+        DELETE FROM mood;
+        DELETE FROM users;
+      `);
+    } catch (err) {
+      console.error('Error cleaning test DB:', err);
+    }
   }
 }

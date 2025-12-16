@@ -33,8 +33,10 @@ test.serial("Registrar humor", async (t) => {
     user_id: userId,
     stress_level: 3,
     anxiety_level: 4,
+    energy_level: 5,
     title: "Bad day",
     description: "Stressado com a faculdade",
+    recorded_at: new Date().toISOString()
   });
 
   t.is(res.status, 201);
@@ -42,16 +44,18 @@ test.serial("Registrar humor", async (t) => {
 });
 
 test.serial("Listar humores do usuário", async (t) => {
-  const res = await request(app).get(`/mood/${userId}`);
+  const res = await request(app).get(`/mood/user/${userId}`);
   t.is(res.status, 200);
-  t.true(Array.isArray(res.body));
+  t.true(Array.isArray(res.body.moods));
 });
 
 test.serial("Falha ao registrar humor sem stress_level", async (t) => {
   const res = await request(app).post("/mood").send({
     user_id: userId,
     anxiety_level: 4,
+    energy_level: 5,
     title: "Test",
+    recorded_at: new Date().toISOString()
   });
 
   t.is(res.status, 400);
@@ -67,8 +71,10 @@ test.serial("Listar múltiplos humores do usuário", async (t) => {
     user_id: userId,
     stress_level: 3,
     anxiety_level: 4,
+    energy_level: 6,
     title: "Morning",
     description: "Morning mood",
+    recorded_at: new Date().toISOString()
   });
   t.is(res1.status, 201);
 
@@ -77,14 +83,16 @@ test.serial("Listar múltiplos humores do usuário", async (t) => {
     user_id: userId,
     stress_level: 2,
     anxiety_level: 2,
+    energy_level: 8,
     title: "Evening",
     description: "Evening mood",
+    recorded_at: new Date().toISOString()
   });
   t.is(res2.status, 201);
 
-  const res = await request(app).get(`/mood/${userId}`);
+  const res = await request(app).get(`/mood/user/${userId}`);
   t.is(res.status, 200);
-  t.true(Array.isArray(res.body));
-  t.is(res.body.length, 2);
+  t.true(Array.isArray(res.body.moods));
+  t.is(res.body.moods.length, 2);
 });
 
