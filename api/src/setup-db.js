@@ -9,13 +9,19 @@ const __dirname = path.dirname(__filename);
 export function setupDatabase(dbPath = 'orbit.db') {
   const db = new Database(dbPath);
 
-  // Read and execute migrations
+  // Read and execute migrations in order
   const migrationsDir = path.join(__dirname, '..', 'migrations');
-  const migrationFile = path.join(migrationsDir, '001_initial_schema.sql');
+  const migrationFiles = [
+    '001_initial_schema.sql',
+    '002_mood_enhancements.sql'
+  ];
 
-  if (fs.existsSync(migrationFile)) {
-    const migration = fs.readFileSync(migrationFile, 'utf8');
-    db.exec(migration);
+  for (const file of migrationFiles) {
+    const migrationPath = path.join(migrationsDir, file);
+    if (fs.existsSync(migrationPath)) {
+      const migration = fs.readFileSync(migrationPath, 'utf8');
+      db.exec(migration);
+    }
   }
 
   return db;
@@ -25,13 +31,19 @@ export function setupTestDatabase() {
   // Use in-memory database for tests
   const db = new Database(':memory:');
 
-  // Read and execute migrations
+  // Read and execute migrations in order
   const migrationsDir = path.join(__dirname, '..', 'migrations');
-  const migrationFile = path.join(migrationsDir, '001_initial_schema.sql');
+  const migrationFiles = [
+    '001_initial_schema.sql',
+    '002_mood_enhancements.sql'
+  ];
 
-  if (fs.existsSync(migrationFile)) {
-    const migration = fs.readFileSync(migrationFile, 'utf8');
-    db.exec(migration);
+  for (const file of migrationFiles) {
+    const migrationPath = path.join(migrationsDir, file);
+    if (fs.existsSync(migrationPath)) {
+      const migration = fs.readFileSync(migrationPath, 'utf8');
+      db.exec(migration);
+    }
   }
 
   return db;
