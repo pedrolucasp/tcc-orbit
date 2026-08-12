@@ -740,8 +740,11 @@ Versão: \currversion^^J
 	\onehalfspacing
   \refstepcounter{chapter}%
   \addcontentsline{toc}{chapter}{\protect\numberline{\@chapapp\thechapter}#1}%
-  \addtocontents{lof}{\protect\addvspace{10\p@}}%
-  \addtocontents{lot}{\protect\addvspace{10\p@}}%
+  % Standard LaTeX chapter-grouping spacing in LoF/LoT: commented out to keep
+  % uniform spacing between all entries regardless of chapter boundaries, since I
+  % dunno if these are from TSI's guidelines or just copy-pasted from somewhere
+  %\addtocontents{lof}{\protect\addvspace{10\p@}}%
+  %\addtocontents{lot}{\protect\addvspace{10\p@}}%
   \pagestyle{texufpel}\let\ps@plain\ps@texufpel%
   \@makechapterhead{#2}\@afterheading%
 }
@@ -755,8 +758,11 @@ Versão: \currversion^^J
 
 \def\@schapter#1{%
   \if@aftertoc\addcontentsline{toc}{chapter}{#1}\fi%
-  \addtocontents{lof}{\protect\addvspace{10\p@}}%
-  \addtocontents{lot}{\protect\addvspace{10\p@}}%
+  % Standard LaTeX chapter-grouping spacing in LoF/LoT: commented out to keep
+  % uniform spacing between all entries regardless of chapter boundaries, since I
+  % dunno if these are from TSI's guidelines or just copy-pasted from somewhere
+  %\addtocontents{lof}{\protect\addvspace{10\p@}}%
+  %\addtocontents{lot}{\protect\addvspace{10\p@}}%
   \@makeschapterhead{#1}\@afterheading%
 }
 
