@@ -289,7 +289,7 @@ export type HistoryCard = {
   id: string; // "<category>-<id>" to avoid collisions
   category: HistoryCategory;
   subtype?: CareActionSubtype; // only set when category === "care_action"
-  timestamp: string; // ISO string — used for sorting and display
+  timestamp: string; // ISO string -- used for sorting and display
   title: string;
   summary: string;
   badge?: HistoryBadge;
