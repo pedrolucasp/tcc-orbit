@@ -86,6 +86,13 @@
         "projectId": "9e045ebc-b4b3-4fc9-959f-d6db2f12259c"
       }
     },
-    "owner": "eletrotupi"
+    "owner": "eletrotupi",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/9e045ebc-b4b3-4fc9-959f-d6db2f12259c"
+    },
+    "ios": {}
   }
 }
