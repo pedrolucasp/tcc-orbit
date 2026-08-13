@@ -8,6 +8,7 @@
 \usepackage{array,booktabs}
 \usepackage{enumitem}
 \usepackage{listings}
+
 \usepackage{makecell}
 \usepackage{graphicx,subfigure}
 \usepackage{multirow}
@@ -61,8 +62,9 @@
 \instituicaomembroiii{UFCR}
 
 % Palavras-chave do trabalho desenvolvido.
-\keyword{Desenvolvimento de Aplicativo}
+\keyword{TypeScript}
 \keyword{Transtorno Afetivo Bipolar}
+\keyword{Monitoramento de humor}
 \keyword{React Native}
 
 % XXX: Fix longtables not having a prefix. Fucking POS template; shoulda stick
@@ -116,31 +118,37 @@
 % TODO: 150 words min, not more than one page, obviously, always saying that it
 % concluded the proposed objectives
 \begin{abstract}
-  Esse projeto aborda o desenvolvimento de um aplicativo de auxílio e controle
-  para pessoas com transtorno de afetivo bipolar (TAB). A proposta é uma
-  aplicação cujo usuário pode utilizar para monitorar o registro diário tanto
-  de mudanças no humor quanto também no controle e registro de intervenções,
-  qualidade de sono e gatilhos, com o objetivo de facilitar a identificação da
-  fase cíclica da TAB. O trabalho abrange desde a construção da pesquisa
-  inicial, o desenvolvimento da aplicação e testes. O sistema é praticamente
-  inteiramente desenvolvido na linguagem de programação JavaScript, tanto com o
-  backend/API e a aplicação, desenvolvida em React Native.
+\noindent
+Esse projeto aborda o desenvolvimento de um aplicativo de monitoramento e
+controle para pessoas com transtorno de afetivo bipolar (TAB), bebendo de
+inspiração de fundamentos da \textit{Ecological Momentary Assessment} para
+abordagem. A proposta então é uma aplicação cujo usuário pode utilizar para
+monitorar o registro diário tanto de mudanças no humor quanto também no
+controle e registro de ações que possam auxiliar ou mitigar alguma questão
+psicológica, anotar a qualidade e média de sono e gatilhos, com o objetivo de
+facilitar a identificação da fase cíclica da TAB. O trabalho abrange desde a
+construção da pesquisa inicial, o desenvolvimento da aplicação e testes. O
+sistema é inteiramente desenvolvido na linguagem de programação TypeScript,
+tanto com o backend/API e a aplicação, desenvolvida usando React Native. Também
+é utilizado como parte de infraestrutura, \textit{Docker containers} para
+garantir que a implantação seja reproduzível.
 \end{abstract}
 
 % Resumo em língua estrangeira
 \begin{englishabstract}%
- 	{Mobile application, Bipolar Affective Disorder, Mood Tracker}
+  {TypeScript, Bipolar Affective Disorder, Mood Tracker, React Native}
 
+  \noindent
   This work addresses the development of a mood tracking mobile application
-  aimed at people with Bipolar Affective Disorder (BAP). The proposal is a
-  daily mood tracker, which also has modules for tracking sleep quality, which
-  can aid in identifying hypomanic or manic cycles. It’ll also design a
-  tracking of other elements such as interventions, sleep patterns, triggers,
-  and reminders, which engages in a more faithful detection of cycles and
-  patterns. The work itself goes all the way from the initial research up to
-  the development of the app, layout, and tests. The system itself is mostly
-  written in JavaScript.
-
+  aimed at people with Bipolar Affective Disorder (BAP), emboding elements from
+  the Ecological Momentary Assessment as a baseline. The proposal is a daily
+  mood tracker, which also has features for tracking sleep quality, care
+  actions to handle any psychological issue, triggers, which all can aid in
+  identifying hypomanic or manic cycles. The work itself goes all the way from
+  the initial research up to the development of the app, layout, and tests. The
+  system itself is written in TypeScript, from the backend/API to the mobile
+  application. Also, as part of the infrastructure, it uses Docker containers
+  to guarantee that the deployment is reproducible.
 \end{englishabstract}
 
 %Lista de Figuras
@@ -158,6 +166,7 @@
 	\item[TAB] Transtorno Afetivo Bipolar
   \item[BAP] Bipolar Affective Disorder
   \item[TCC] Terapia Cognitivo-comportamental
+  \item[EMA] \textit{Ecological Momentary Assessment}
   \item[UML] \textit{Unified Modeling Language}
   \item[DAO] \textit{Data Access Object}
   \item[REST] \textit{Representational State Transfer}
