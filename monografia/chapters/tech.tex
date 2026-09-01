@@ -1,10 +1,21 @@
 \chapter{Tecnologias}
 
 Este capítulo apresenta as principais tecnologias empregadas no desenvolvimento
-do aplicativo, organizadas de acordo com a camada da arquitetura em que
-atuam: front-end, back-end e infraestrutura/persistência de dados.
+do aplicativo, organizadas de acordo com a camada da arquitetura em que atuam:
+\textit{front-end}, \textit{back-end} e infraestrutura/persistência de dados.
 
 \section{Front-end}
+
+O termo \textit{frontend} refere-se à camada de um sistema responsável pela
+interação direta com o usuário: a interface visual, a lógica de apresentação e
+o processamento que ocorre no dispositivo do próprio usuário, seja um navegador
+ou, como no caso do Nexo, um aplicativo móvel, conforme
+~\citet{sommerville:2010}. É o frontend que renderiza telas, captura entradas
+do usuário (como toques e formulários) e comunica-se com o \texit{backend}
+através de requisições de rede, geralmente utilizando APIs. No caso do Nexo,
+essa camada é implementada com \textit{React Native} e Expo, permitindo que a
+mesma base de código seja compilada tanto para Android utilizando bibliotecas
+em \textit{TypeScript}.
 
 \subsection{React Native}
 
@@ -35,6 +46,18 @@ projeto de escopo individual em que a complexidade adicional de soluções
 mais robustas de gerenciamento de estado não se justifica.
 
 \section{Back-end}
+
+Já o termo \textit{backend} refere-se à camada de um sistema que processa a
+lógica de negócio, gerencia o acesso e a persistência de dados, e expõe essa
+funcionalidade a clientes (como o frontend) através de uma interface bem
+definida, tipicamente uma API HTTP \cite{Fowler_2013}. O \textit{backend} é
+responsável por validar dados recebidos, aplicar regras de negócio, autenticar
+usuários, e coordenar o acesso ao banco de dados e a outros serviços
+auxiliares. No caso do Nexo, essa camada é implementada em Node.js com o
+framework \textit{Express}, seguindo uma arquitetura em camadas (\textit{Route}
+$\rightarrow$ \textit{Controller} $\rightarrow$ \textit{Service} $\rightarrow$
+Prisma) que separa as responsabilidades de validação, lógica de negócio e
+acesso a dados.
 
 \subsection{Express.js}
 
@@ -82,6 +105,24 @@ permissiva de código aberto.
 
 \section{Infraestrutura e Persistência de Dados}
 
+A camada de \textit{infraestrutura e persistência} de um sistema abrange os
+componentes responsáveis por armazenar e gerenciar os dados de forma durável,
+bem como os serviços auxiliares que sustentam o funcionamento da aplicação em
+produção \cite{Fowler_2013}. O elemento central dessa camada costuma ser o
+sistema de gerenciamento de banco de dados (SGBD), responsável por garantir a
+integridade, consistência e durabilidade dos dados armazenados. No caso do
+Nexo, essa função é cumprida pelo PostgreSQL, um SGBD relacional, acessado
+através do Prisma, um \textit{Object-Relational Mapper} (ORM) que traduz
+operações do banco de dados em chamadas de código TypeScript, eliminando a
+necessidade de escrever consultas SQL manualmente na maior parte dos casos.
+
+Complementarmente, o Nexo utiliza o Valkey como armazenamento em memória de
+alta velocidade, empregado tanto para cache quanto como \textit{broker} de
+mensagens para o sistema de filas, cujo suas filas são gerenciadas com a
+biblioteca BullMQ para lidar com os \textit{background jobs} enviados. Os
+mesmos são responsáveis por processar os indicadores semanais e diários
+descritos nos capítulos anteriores.
+
 \subsection{PostgreSQL}
 
 PostgreSQL é um sistema gerenciador de banco de dados relacional, de código
@@ -109,6 +150,23 @@ as consultas realizadas.
 
 \section{Implantação e Automação}
 
+Já os termos \textit{implantação} (\textit{deployment}) e
+\textit{automatização} referem-se ao conjunto de práticas e ferramentas
+utilizadas para transformar o código-fonte de uma aplicação em um sistema
+efetivamente disponível e em execução, de forma repetível e com o mínimo de
+intervenção manual \cite{Humble_Farley_2011}. No caso do Nexo, essa camada é
+sustentada por três ferramentas complementares. O Docker é utilizado para
+empacotar a aplicação e suas dependências em contêineres isolados e portáveis,
+garantindo que o ambiente de execução seja idêntico entre desenvolvimento e
+produção; o Docker Compose orquestra a execução conjunta de múltiplos
+contêineres (aplicação, banco de dados, Valkey), definindo suas configurações e
+interdependências em um único arquivo declarativo. O GitHub Actions é
+responsável pela integração e entrega contínuas (CI/CD), automatizando
+etapas como execução de testes e construção de imagens a cada alteração no
+código. Por fim, o Ansible é utilizado para o provisionamento inicial da
+infraestrutura, automatizando a configuração do servidor onde a aplicação é
+hospedada.
+
 \subsection{Docker e Docker Compose}
 
 Docker é uma plataforma de conteinerização que permite empacotar uma
@@ -117,7 +175,6 @@ executada de forma consistente em diferentes ambientes \citep{docker:2026}. O
 Docker Compose é uma ferramenta complementar que permite definir e orquestrar
 múltiplos contêineres -- e as relações entre eles -- por meio de um único
 arquivo de configuração declarativo \citep{dockercompose:2026}.
-
 
 No projeto, o Docker Compose é utilizado tanto no ambiente de desenvolvimento
 quanto no ambiente de produção para orquestrar os serviços de banco de dados
@@ -132,7 +189,7 @@ fato prontos para aceitar conexões, evitando falhas de inicialização
 por condição de corrida (\textit{race condition}), como ilustrado no
 Código~\ref{lst:healthcheck-compose}.
 
-\begin{lstlisting}[caption={Configuração dUndefined referencee \textit{healthcheck} do Valkey e de dependência condicional da API no \texttt{docker-compose.yml}}, label={lst:healthcheck-compose}]
+\begin{lstlisting}[caption={Configuração do \textit{healthcheck} do Valkey e de dependência condicional da API no \texttt{docker-compose.yml}}, label={lst:healthcheck-compose}]
 valkey:
   image: valkey/valkey:9.0-alpine
   healthcheck:
